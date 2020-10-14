@@ -1,3 +1,4 @@
+//$("#id1").css("color","red");
 class Vehicle {
 	model: string;
 	kmLeft: number;
