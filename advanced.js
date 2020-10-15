@@ -11,6 +11,11 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+/*arrays that hold the respective vehicle objects*/
+var carArray = [];
+var motorbikesArray = [];
+var truckArray = [];
+var aircraftArray = [];
 var Vehicle = /** @class */ (function () {
     function Vehicle(m, km, seats, fuel, year, img) {
         this.model = m;
@@ -55,6 +60,9 @@ var Automobile = /** @class */ (function (_super) {
     function Automobile(m, km, seats, fuel, year, img, ac) {
         var _this = _super.call(this, m, km, seats, fuel, year, img) || this;
         _this.ac = ac;
+        carArray.push(_this);
+        _this.index = carArray.length;
+        console.log(_this.index);
         return _this;
     }
     Automobile.prototype.calcPrice = function () {
@@ -62,6 +70,9 @@ var Automobile = /** @class */ (function (_super) {
     };
     Automobile.prototype.isAC = function () {
         return this.ac;
+    };
+    Automobile.prototype.render = function () {
+        return "\n\t\t<div class=\"col-md-5 card mb-3 p-2\" style=\"width: 18rem;\">\n  \t\t<img class=\"card-img-top\" src=\"" + this.image + "\" alt=\"Card image cap\">\n  \t\t<div class=\"card-body\">\n\t\t\t<h5 class=\"card-title\">" + this.model + "</h5>\n\t    \t<p class=\"card-text\">" + this.productionYear + "</p>\n\t    \t<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#car" + this.index + "\">more info</button>\n  \t\t</div>\n\t\t</div>\n\n\t\t<!-- Modal -->\n\t\t<div class=\"modal fade\" id=\"car" + this.index + "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\n\t\t  <div class=\"modal-dialog\" role=\"document\">\n\t\t    <div class=\"modal-content\">\n\t\t      <div class=\"modal-header\">\n\t\t        <h5 class=\"modal-title\" id=\"exampleModalLabel\">" + this.model + "</h5>\n\t\t        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n\t\t          <span aria-hidden=\"true\">&times;</span>\n\t\t        </button>\n\t\t      </div>\n\t\t      <div class=\"modal-body\">\n\t\t        <p>Production year: " + this.productionYear + "</p>\n\t\t        <p>Fuel: " + this.fuelType + "</p>\n\t\t        <p>Mileage: " + this.kmLeft + "</p>\n\t\t        <p>Number of seats: " + this.numberSeats + "</p>\n\t\t        <p carID=\"" + this.index + "\"></p>\n\t\t      </div>\n\t\t      <div class=\"modal-footer\">\n\t\t        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n\t\t        <button type=\"button\" index = \"" + this.index + "\" class=\"calculate btn btn-success\">Calculate Price</button>\n\t\t      </div>\n\t\t    </div>\n\t\t  </div>\n\t\t</div>\n\t\t";
     };
     return Automobile;
 }(Vehicle));
@@ -77,59 +88,15 @@ var Aircraft = /** @class */ (function (_super) {
     };
     return Aircraft;
 }(Vehicle));
-/*var bike = new Motorbike("Norton", 37000, 2, "gas", 1950, 125);
-console.log(bike.calcPrice());*/
-var carArray = [];
-for (var i_1 = 0; i_1 < 6; ++i_1) {
-    var tmp = new Automobile("Honda", 12000, 5, "gas", 2008, "https://upload.wikimedia.org/wikipedia/commons/0/0d/2019_Honda_Civic_coupe_%28facelift%29%2C_front_12.16.19.jpg", true);
-    carArray.push(tmp);
-}
-for (var i = 0; i < carArray.length; ++i) {
-    $(".cars").append("\n\t<div class=\"col-md-5 card mb-3 p-2\" style=\"width: 18rem;\">\n  \t\t<img class=\"card-img-top\" src=\"" + carArray[i].image + "\" alt=\"Card image cap\">\n  \t\t<div class=\"card-body\">\n\t\t\t<h5 class=\"card-title\">" + carArray[i].model + "</h5>\n\t    \t<p class=\"card-text\">" + carArray[i].productionYear + "</p>\n\t    \t<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#car" + i + "\">more info</button>\n  \t\t</div>\n\t</div>\n\n\t<!-- Modal -->\n\t<div class=\"modal fade\" id=\"car" + i + "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\n\t  <div class=\"modal-dialog\" role=\"document\">\n\t    <div class=\"modal-content\">\n\t      <div class=\"modal-header\">\n\t        <h5 class=\"modal-title\" id=\"exampleModalLabel\">" + carArray[i].model + "</h5>\n\t        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n\t          <span aria-hidden=\"true\">&times;</span>\n\t        </button>\n\t      </div>\n\t      <div class=\"modal-body\">\n\t        <p>Production year: " + carArray[i].productionYear + "</p>\n\t        <p>Fuel: " + carArray[i].fuelType + "</p>\n\t        <p>Mileage: " + carArray[i].kmLeft + "</p>\n\t        <p>Number of seats: " + carArray[i].seats + "</p>\n\t        <p carID=\"" + i + "\"></p>\n\t      </div>\n\t      <div class=\"modal-footer\">\n\t        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n\t        <button type=\"button\" index = \"" + i + "\" class=\"calculate btn btn-success\">Calculate Price</button>\n\t      </div>\n\t    </div>\n\t  </div>\n\t</div>\n\t");
-}
-$(".cars").delegate(".calculate", "click", function () {
-    var tmp = $(this).attr("index");
+$("#cars").delegate(".calculate", "click", function () {
+    var tmp = Number($(this).attr("index"));
     console.log(tmp);
-    $("p[carID='" + tmp + "']").text("Price: " + carArray[0].calcPrice() + " €");
-    /*$(".calculate").text("Buy immediately!!!");*/
+    $("p[carID='" + tmp + "']").text("Price: " + carArray[tmp - 1].calcPrice() + " \u20AC");
 });
-/*$(".cars").append(`
-    <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="${carArray[0].image}" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">${carArray[0].model}</h5>
-            <p class="card-text">${carArray[0].productionYear}</p>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">more info</button>
-        </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">${carArray[0].model}</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p>Production year: ${carArray[0].productionYear}</p>
-            <p>Fuel: ${carArray[0].fuelType}</p>
-            <p>Mileage: ${carArray[0].kmLeft}</p>
-            <p>Number of seats: ${carArray[0].seats}</p>
-            <p id="test"></p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="calculate btn btn-success">Calculate Price</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    `);
-
-$(".cars").delegate(".calculate", "click", function(){
-    $("#test").text("Price: " + carArray[0].calcPrice() + " €");
-    $(".calculate").text("Buy immediately!!!");
-});*/ 
+new Automobile("Honda", 12000, 5, "Gas", 2008, "https://upload.wikimedia.org/wikipedia/commons/0/0d/2019_Honda_Civic_coupe_%28facelift%29%2C_front_12.16.19.jpg", true);
+new Automobile("Suzuki", 5700, 4, "Gas", 2018, "https://www.suzuki.at/auto/offentliche-bilder/inhalte/angebote-modelle/swift-hybrid-2020/swift-hybrid-mandantenbanner/@@images/bb501c76-db86-451a-a79a-1f2b6068928b.jpeg", true);
+new Automobile("Tesla", 1000, 5, "Electricity", 2017, "https://tesla-cdn.thron.com/delivery/public/image/tesla/35d15221-0a5f-4dce-b484-a4db67b81dd2/bvlatuR/std/0x0/model-s@2x", true);
+new Automobile("Mercedes", 23000, 4, "Diesel", 1991, "https://i.pinimg.com/originals/2d/97/ba/2d97ba56023f3e8e3b6c6c8ee325bc50.jpg", false);
+for (var i in carArray) {
+    document.getElementById("cars").innerHTML += carArray[i].render();
+}
