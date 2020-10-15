@@ -12,9 +12,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
         <div class="navbar-collapse" id="navbarNav">
-
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="advanced.html">Home</a>
@@ -34,24 +32,24 @@
             </ul>
         </div>
     </nav>
-
-
     <div id="aircraft" class="row d-flex justify-content-around">
-
     </div>
-
-
     <!-- Optional JavaScript -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <!--<script src="json.json"></script>-->
-    <!--<script src="script.js"></script>-->
-    <script src="advanced.js"></script>
-
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="advanced.js"></script>
+    
+    <script>
+    new Aircraft("Cessna 172", 12000, 4, "Jet Fuel", 2008, "https://upload.wikimedia.org/wikipedia/commons/a/ae/Cessna_172S_Skyhawk_SP%2C_Private_JP6817606.jpg", "Double Engine");
+    new Aircraft("Eurofighter Airbus", 5700, 2, "Jet Fuel", 2018, "https://airbus-h.assetsadobe2.com/is/image/content/dam/channel-specific/website-/products-and-services/defence/eurofighter/eurofighter-typhoon-a-powerful-force-multiplier-1802.jpg?wid=1920&fit=fit,1&qlt=85,0", "Jet");
+    new Aircraft("Mooney Ovation", 1000, 2, "Jet Fuel", 2017, "https://www.flyingmag.com/resizer/NvKkejqZTMO9QkhcsjUPmJ7OFC8=/760x512/arc-anglerfish-arc2-prod-bonnier.s3.amazonaws.com/public/7OABQHLBEL6PZ2YJXW7TA4NXDY.jpg", "Single Engine");
+    new Aircraft("Diamond Twin Star", 23000, 4, "Jet Fuel", 1991, "https://www.diamondaircraft.com/fileadmin/_processed_/3/5/csm_DA42-VI_Reserve-Auswahl-Bilder_Bild-_14__f4797babaa.jpg", "Double Engine");
 
+    for (var i = 0; i < aircraftArray.length; ++i) {
+            document.getElementById("aircraft").innerHTML += aircraftArray[i].render();
+    }
+    </script>
 </body>
 
 </html>
